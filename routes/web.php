@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,9 @@ Route::get('login', [AuthController::class, 'viewLogin'])->name('view.login');
 
 
 Route::get('product/list', [ProductController::class, 'viewProductList'])->name('view.product.list');
+
+Route::get('category/list', [CategoryController::class, 'viewCategory'])->name('view.category.list');
+Route::get('category/add', [CategoryController::class, 'viewAdd'])->name('view.add.list');
+
+Route::post('category/add', [CategoryController::class, 'store'])->name('view.store.list');
+
