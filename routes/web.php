@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('login', [AuthController::class, 'viewLogin'])->name('view.login');
+
+
+Route::get('product/list', [ProductController::class, 'viewProductList'])->name('view.product.list');
