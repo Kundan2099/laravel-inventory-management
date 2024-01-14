@@ -22,6 +22,20 @@
                     <th>Thumbnail Image</th>
                     <th>Status</th>
                 </thead>
+                <tbody>
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $category->id }}</td>
+                            <td>{{ $category->category_id }}</td>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->summary }}</td>
+                            <td>{{ $category->thumbnail_image }}</td>
+                            <td>
+                                <a href="#">Edit</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
 

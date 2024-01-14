@@ -27,6 +27,7 @@ Route::get('product/list', [ProductController::class, 'viewProductList'])->name(
 
 Route::get('category/list', [CategoryController::class, 'viewCategory'])->name('view.category.list');
 Route::get('category/add', [CategoryController::class, 'viewAdd'])->name('view.add.list');
+Route::get('category/edit', [CategoryController::class, 'viewedit'])->name('view.edit.list');
 
 Route::post('category/add', [CategoryController::class, 'store'])->name('view.store.list');
 
