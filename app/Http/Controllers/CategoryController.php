@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -45,7 +46,7 @@ class CategoryController extends Controller
             'category_id' => ['nullable', 'numeric', 'exists:categories,id'],
             'name' => ['required', 'string', 'min:5', 'max:100', 'unique:categories'],
             'summary' => ['required', 'string', 'min:1', 'max:500'],
-            'thumbnail_image' => ['required', 'file', 'mimes:jpg,png,webp,jpeg'],
+            'thumbnail_image' => ['nullable', 'file', 'mimes:jpg,png,webp,jpeg'],
         ]);
 
         if ($validation->fails()) {
@@ -56,13 +57,15 @@ class CategoryController extends Controller
         $category->category_id = $request->input('category_id');
         $category->name = $request->input('name');
         $category->summary = $request->input('summary');
-        $category->thumbnail_image = $request->file('thumbnail_image')->store('categories');
+        if ($request->hasFile('thumbnail_image')) {
+            $category->thumbnail_image = $request->file('thumbnail_image')->store('categories');
+        }
         $result = $category->save();
 
         if ($result) {
             return redirect()->route('view.category.list')->with('message', 'Category Successfully Added');
         } else {
-            echo "error";
+            return abort(500);
         }
 
     }
@@ -77,9 +80,9 @@ class CategoryController extends Controller
 
         $validation = Validator::make($request->all(), [
             'category_id' => ['nullable', 'numeric', 'exists:categories,id'],
-            'name' => ['required', 'string', 'min:5', 'max:100', 'unique:categories'],
+            'name' => ['required', 'string', 'min:5', 'max:100', Rule::unique('categories')->ignore($category->name, 'name')],
             'summary' => ['required', 'string', 'min:1', 'max:500'],
-            'thumbnail_image' => ['required', 'file', 'mimes:jpg,png,webp,jpeg'],
+            'thumbnail_image' => ['nullable', 'file', 'mimes:jpg,png,webp,jpeg'],
         ]);
 
         if ($validation->fails()) {
@@ -89,13 +92,15 @@ class CategoryController extends Controller
         $category->category_id = $request->input('category_id');
         $category->name = $request->input('name');
         $category->summary = $request->input('summary');
-        $category->thumbnail_image = $request->file('thumbnail_image')->store('categories');
+        if ($request->hasFile('thumbnail_image')) {
+            $category->thumbnail_image = $request->file('thumbnail_image')->store('categories');
+        }
         $result = $category->update();
 
         if ($result) {
             return redirect()->route('view.category.list')->with('message', 'Category Successfully Added');
         } else {
-            echo "error";
+            return abort(500);
         }
     }
 
