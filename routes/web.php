@@ -39,7 +39,6 @@ Route::middleware(['auth:admin'])->group(function () {
     })->name('handle.logout');
 });
 
-Route::get('product/list', [ProductController::class, 'viewProductList'])->name('view.product.list');
 
 Route::get('category/list', [CategoryController::class, 'viewCategory'])->name('view.category.list');
 Route::get('category/add', [CategoryController::class, 'viewAdd'])->name('view.add.list');
@@ -48,3 +47,15 @@ Route::get('category/edit/{id}', [CategoryController::class, 'viewedit'])->name(
 Route::post('category/add', [CategoryController::class, 'store'])->name('store.category');
 Route::post('category/edit/{id}', [CategoryController::class, 'edit'])->name('edit.category');
 Route::get('category/delete/{id}', [CategoryController::class, 'delete'])->name('delete.category');
+
+
+//  Product
+Route::get('product/list', [ProductController::class, 'viewProductList'])->name('view.product.list');
+Route::get('product/add', [ProductController::class, 'viewProductAdd'])->name('view.add.product');
+Route::get('product/edit/{id}', [ProductController::class, 'viewProductList'])->name('view.edit.product');
+
+Route::post('product/add', [ProductController::class, 'store'])->name('store.product');
+Route::post('product/edit/{id}', [CategoryController::class, 'edit'])->name('edit.product');
+
+
+

@@ -67,7 +67,6 @@ class CategoryController extends Controller
         } else {
             return abort(500);
         }
-
     }
 
     function edit(Request $request, $id)
